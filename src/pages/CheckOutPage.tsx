@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useAppSelector } from "../redux/hooks";
 import { useCreteOrderMutation } from "../redux/api/api";
+import { useAppSelector } from "../redux/hooks";
 
 export default function CheckOutPage() {
-  const [createOrder] = useCreteOrderMutation()
+  const [createOrder] = useCreteOrderMutation();
   // State for user input
   const [user, setUser] = useState({
     name: "Fahim Ahammed",
@@ -34,12 +34,13 @@ export default function CheckOutPage() {
     try {
       const res = await createOrder(data).unwrap();
       if (res.success) {
-        console.log(res)
+        // redirecting 
+        window.location.href = res.data.payment_url;
       } else {
-        console.error('Order creation failed:', res.message);
+        console.error("Order creation failed:", res.message);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
